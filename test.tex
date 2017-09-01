@@ -1,0 +1,277 @@
+\documentclass{elsarticle}
+%\usepackage[utf8]{inputenc}
+%\usepackage{hyperref}
+
+%\usepackage{setspace,caption}
+%\doublespacing%
+
+\title{Predictive Control and Estimation for the Management of Lake Levels and Stream Flows in Complex Natural Watersheds}
+\author{Kelly McGarry, Michelle Pham, and Jeffrey Kantor}
+\date{May, 2017}
+
+\begin{document}
+
+\begin{abstract}
+The surface watersheds of North America contain over 20\% of the world's freshwater with profound environmental and ecological importance. Large scale networks for the real-time monitoring of lake levels and stream flows are available throughout the United States and Canada. This paper investigates the use of predictive control for management of two large lakes in the Rainy River Watershed located on the Minnesota/Ontario border between the the United States and Canada. Simulation shows the potential for reduction in the magnitude and duration of summer flooding events from climate change and the need for better ecological management.
+\end{abstract}
+
+\maketitle
+
+\end{document}
+
+
+%\twocolumn
+
+\section*{Introduction}
+\noindent
+Managing freshwater resources in the face of profound climate and ecological challenges is among the difficult issues facing many regions of the world. This is evident in the freshwater resources of North America including the Great Lakes, the rivers and streams of the Canadian Shield, and the transboundary waters of the United States and Canada regulated under the Boundary Water Treaty of 1909 and managed by the International Joint Commission.
+
+This paper investigates the use of predictive control and estimation for the adaptive management of lake levels and river flows in the Rainy River watershed that straddles the international border between Minnesota and Ontario. This complex 70,225 km$^2$ watershed(about the size of Ireland) is managed by the International Joint Commission as a component of the Lake of the Woods basin. The watershed includes Voyageurs National Park, the Boundary Waters Canoe Area (BWCA) and Bois Forte Indian Reservation on the U.S. side of the border, the Quetico Provincial Park wilderness area, the Mitaanjigamiing, Couchiching, and Nigigoonsiminikaang First Nation communities on the Canadian side. The watershed generates revenue through timber for lumber and paper production, electricity generation, recreation, and tourism, and ultimately provides drinking water for 750,000 people.
+
+
+
+
+\begin{minipage}{0.9\linewidth}
+\par\vspace{10pt}
+\noindent\includegraphics[width=\linewidth]{basins_map.png}
+\captionof{figure}[]{Map of the transboundary watershed basins under the purview of the International Joint Commission.}\label{figure:1}
+\end{minipage}\par\vspace{6pt}
+
+The two largest lakes within the watershed, Rainy Lake (approximately 930 km$^2$) and the Namakan Reservoir (approximately, are partially controlled by dams operated by commercial entities under terms of Orders issued by the International Joint Commission. For this watershed dam operators are required to manage lake levels, when feasible, to remain within 'rule curves' which establish upper and lower bounds on lake levels. The rule curves are periodically reviewed and revised to accommodate ecological, hydrological, economic, and political considerations. The most recent revisions were 1970 and 2000. A review is currently underway that is likely to result in some changes to the standing orders for lake level management.
+
+\begin{minipage}{0.9\linewidth}
+\centering
+\par\vspace{10pt}
+\noindent\includegraphics[width=\linewidth]{rl_basinmap.png}
+\captionof{figure}[]{Description of Figure}\label{figure:1}
+\end{minipage}\par\vspace{6pt}
+
+\begin{minipage}{0.9\linewidth}
+\centering
+\par\vspace{10pt}
+\noindent\includegraphics[width=\linewidth]{RuleCurveComparison.png}
+\captionof{figure}[]{Rule curves establish desired upper and lower bounds of lake levels. This chart compares rules in force for the Namakan Reservoir (upper panel) and Rainy Lake (lower panel) for the period 1970-1999, and 2000 -- present. The additional lines establish emergency high and lower water conditions.} \label{figure:1}
+\end{minipage}\par\vspace{6pt}
+
+The project reported here was initiated following a series of high water events subsequent to the rule curve revision of 2000, including major flooding in the summers of 2002 and 2014. The goal of the initial work was to establish whether the flooding events could have been prevented by improved control of dam operations.  The project has evolved and now encompasses three main efforts:
+
+\begin{minipage}{0.9\linewidth}
+\centering
+\par\vspace{10pt}
+\includegraphics[width=\linewidth]{RuleCurvePerformance2000-2014}
+\captionof{figure}[]{The levels of Rainy Lake and Namakan Reservoir are compared to the rule curves in effect for 2000-2014. The significant overshoots correspond to flooding events with serious economic and ecological consequences.}\label{figure:2}
+\end{minipage}\par\vspace{6pt}
+
+\begin{itemize}
+\item Development of a tracking filter to estimate net inflows to the major reservoirs in the watershed using available lake level gauges and limited stream flow measurements.
+\item Development of multivariable predictive control strategy for the integrated control of the two major dams in the watershed.  Constraints on dam operation include management of emergency high water and low water events, hydrological conveyance constraints upstream of the dams, ecological and property considerations, and constraints on river bank erosion downstream of the dams.
+\item Development of a revised rule curve order for the adaptive management of the water levels and flows that is feasible, can accommodate more variable seasonal flows resulting from the effects of climate change, and that accommodate the biological requirements of key sentinel species representative of the regional ecology.	
+\end{itemize}
+
+\section*{Estimating Lake Inflows}
+
+A tracking filter was developed for the purpose of estimating the net inflow to Rainy Lake. The filter uses available level gauges and incomplete stream flow data to estimate inflows. The serendipitous occurrence of redundant lake measurements in the historical database provided a statistical model for the level measurement errors. The error model was used to tune the tracking filter to produce maximum likelihood estimates of inflows to Rainy Lake. 
+
+\begin{minipage}{0.9\linewidth}
+\centering
+\par\vspace{10pt}
+\includegraphics[width=\linewidth]{FlowDiagram}
+\captionof{figure}[]{The lakes are modeled as simple inventories with level/volume relationships obtained from bathymetry data.}\label{figure:2}
+\end{minipage}\par\vspace{6pt}
+
+\subsection*{Inventory model}
+
+The inventory model assumes the inflows and outflows to Rainy Lake are exogenous disturbances driven by zero mean white noise. The model for daily levels and and daily mean flow is given by
+
+{\tiny
+$$\underbrace{\left[\begin{array}{c} H_{RL}(k+1) \\ I_{RL}(k+1) \\ O_{RL}(k+1) \end{array}\right]}_{x(k+1)} = \underbrace{\left[ \begin{array}{ccc} 1 & \frac{\Delta t}{A_{RL}} & -\frac{\Delta t}{A_{RL}} \\0 & 1 & 0\\0 & 0 &  1\end{array}\right]}_{A} \underbrace{\left[\begin{array}{c} H_{RL}(k) \\ I_{RL}(k) \\ O_{RL}(k) \end{array}\right]}_{x(k)} + \underbrace{\left[ \begin{array}{c} 0 \\ w_{I}(k) \\ w_{O}(k)\end{array}\right]}_{w(k)}$$
+}
+
+\noindent
+where $H$, $I$, $O$ are lake level, inflow, and outflow, respectively. The signals $w_I(k)$, and $w_O(k)$ are zero-mean independent and identically distributed random increments to changing lake inflow and outflows. The vector $w(k)$ is assumed to be distributed as multivariate Normal distribution with zero mean and a covariance $Q$. Lake area $A_{RL}$ depends on lake level, data for which is obtained from lake bathymetry data.
+
+\begin{minipage}{0.9\linewidth}
+\centering
+\par\vspace{10pt}
+\includegraphics[width=\linewidth]{StageArea}
+\captionof{figure}[]{Area-Level Relationship for Rainy Lake and Namakan Reservoir.}\label{figure:3}
+\end{minipage}\par\vspace{6pt}
+
+
+The measurement model is written
+
+$$\underbrace{\left[\begin{array}{c} y_H(k) \\ y_O(k) \end{array}\right]}_{y(k)} = \underbrace{\left[\begin{array}{ccc} 1 & 0 & 0 \\ 0 & 0 & 1 \end{array}\right]}_{C} \underbrace{\left[\begin{array}{c} H_{RL}(k) \\ I_{RL}(k) \\ O_{RL}(k) \end{array}\right]}_{x(k)} +  \underbrace{\left[\begin{array}{c}  v_{H}(k) \\ v_{O}(k) \end{array}\right]}_{v(k)} $$
+
+
+\noindent
+where the measurement noise vector $v(k)$ is an i.i.d. random variate with zero mean and a covariance $R$.
+
+A Kalman filter provides a two step method for estimate values of the state vector $x(k)$. The the estimate of $x(k)$ using information up to time $k-1$ is the prediction step given by 
+
+$$\hat{x}(k|k-1) = A \hat{x}(k-1|k-1)$$
+
+\noindent
+with covariance
+
+$$\hat{P}(k|k-1) = A \hat{P}(k-1|k-1) A^T + Q$$
+
+In the measurement update step, an innovation is the difference between the actual measurement at time $k$ versus the predicted measurement
+
+$$e(k) = y(k) - C \hat{x}(k|k-1)$$
+
+\noindent
+with covariance
+
+$$S(k) = C\hat{P}(k|k-1)C^T + R$$
+
+\noindent
+The Kalman filter gain is given by
+
+$$K(k) = \hat{P}(k|k-1)C^TS^{-1}(k)$$
+
+\noindent
+which is used to compute the updated state estimate
+
+$$\hat{x}(k|k) = \hat{x}(x|k-1) + K(k)e(k)$$
+
+and convariance
+
+$$\hat{P}(k|k) = \hat{P}(k|k-1) - K(k)S(k)K^T(k)$$
+
+\subsection*{Net Inflow to Rainy Lake, 1970-1999 vs 2000-2015}
+
+Historical level for Rainy Lake and outflow data for Rainy River was extracted from the HYDAT Database maintained by the National Water Archive division of the Environment and Climate Change, Government of Canada. Complete code and data files are available on github at \url{https://github.com/jckantor/Rainy-Lake-Hydrology}.
+
+The inflow estimates show a statistically significant change in inflows between the periods 1970-2000 and 2000-2015
+
+\begin{minipage}{0.9\linewidth}
+\centering
+\par\vspace{10pt}
+\includegraphics[width=\linewidth]{RainyLakeInflows}
+\captionof{figure}[]{The 20th to 80th percentiles of inflows to Rainy Lake for the period 1970-1999 vs 2000-2015. The inflows are estimated using a novel tracking filter using lake levels.}\label{figure:2}
+\end{minipage}\par\vspace{6pt}
+
+
+
+
+\subsection*{Net Inflow to Rainy Lake, 1970-1999 vs 2000-2015}
+
+Historical level for Rainy Lake and outflow data for Rainy River was extracted from the HYDAT Database maintained by the National Water Archive division of the Environment and Climate Change, Government of Canada. Complete code and data files are available on github at \url{https://github.com/jckantor/Rainy-Lake-Hydrology}.
+
+The inflow estimates show a statistically significant change in inflows between the periods 1970-2000 and 2000-2015
+
+\section*{Predictive Control}
+
+\subsection*{Discharge Characteristics}
+
+The outflow from Rainy Lake is controlled by a power generating dam located approximately 4 kilometers downstream on Rainy River between International Falls, MN, and Fort Frances, ONT. The stretch of river between Rainy Lake and the dam include a rapids and at least two additional constrictions that limit outflow from the lake. 
+
+For the purposes of predictive control, a necessary modeling step is to identify an overall `discharge characteristic' describing the ability of the river and dam to convey water from the lake.
+
+\begin{minipage}{0.9\linewidth}
+\centering
+\par\vspace{10pt}
+\includegraphics[width=\linewidth]{rlmap}
+\captionof{figure}[]{Location of level (red marker) and flow (green label) sensors on upper Rainy River. The control dam is located between International Falls, MN, and Fort Frances, ONT.}\label{figure:2}
+\end{minipage}\par\vspace{6pt}
+
+The discharge characteristic of upper Rainy River are demonstrated by plotting historical Rainy Lake levels as a function outflow measurements at the dam. Figure \ref{figure:RLdischarge} presents the data coded to distinguish rule curve regimes since 1948. 
+
+The highest levels designated in the plot correspond to 'Emergency High Water' and `All Gates Open (AGO)'. For lake levels below AGO, flow through the dam can be regulated to any level up to the hydraulic capacity of the dam and river. Under the rule curve orders, above the AGO level the dam all gates are opened and the system operated at its full hydraulic capacity. 
+
+\begin{minipage}{0.9\linewidth}
+\centering
+\par\vspace{10pt}
+\includegraphics[width=\linewidth]{RainyRiverDischarge_Fit}
+\captionof{figure}[]{Discharge characteristics of Upper Rainy River color coded by rule curve regime. The fitted red curve denotes the hydraulic capacity of the coupled dam and river system.}\label{figure:RLdischarge}
+\end{minipage}\par\vspace{6pt}
+
+For modeling purposes, the dam discharge $O_{RL}$ is modeled as 
+
+$$ O_{RL} = u F(H_{RL}) $$
+
+\noindent
+where $H_{RL}$ is lake level, $F(H_{RL})$ is the maximum discharge of the dam established by fitted discharge characteristic in Figure \ref{figure:RLdischarge}, and $u$ is the fractional dam opening.
+
+\subsection*{Regulatory Requirements}
+
+The administrative orders for lake level management include a number of explicit requirements that must be incorporated into the control system logic.  The regulatory requirements include:
+
+\begin{enumerate}
+	\item All Gates Open. All waste gates for the dam must be opened when water level are higher than the 'All Gates Open' level
+	\item Low Water Override. When levels are below low rule curve, flows through the dam to be minimized, but no less than a specified minimum to protect downstream interests.
+	\item Emergency Drought Line.  When levels are below the emergency drought line, flows through the dam may be further reduced.
+\end{enumerate}
+
+\subsection*{Implementation}
+
+\begin{minipage}{0.9\linewidth}
+\centering
+\par\vspace{10pt}
+\includegraphics[width=\linewidth]{RLMPC}
+\captionof{figure}[]{}\label{figure:4}
+\end{minipage}\par\vspace{6pt}
+
+A single-loop predictive control strategy was implemented in Matlab/Simulink using the fitted discharge characteristics, level/volume relationship from lake bathymetry, and estimates of historical inflows. 
+
+The basic dam control was computed with an MPC controller targeting the mid-point of the rule curve. A day-of-year schedule provided the rule curve and emergency water level signals. Emergency water level management was implemented as overrides on MPC output, with anti-reset windup used to maintain the internal state of the controller.
+
+\begin{minipage}{0.9\linewidth}
+\centering
+\par\vspace{10pt}
+\includegraphics[width=\linewidth]{RLSim_Model}
+\captionof{figure}[]{A Simulink model for the model predictive control of a power generating dam on Rainy River at International Falls MN/Fort Frances. The model incorporates terms of a treaty regulating dam operation on the international border.}\label{figure:3}
+\end{minipage}\par\vspace{6pt}
+
+\begin{minipage}{0.9\linewidth}
+\centering
+\par\vspace{10pt}
+\includegraphics[width=\linewidth]{RLSim_Results}
+\captionof{figure}[]{Simulated response of Rainy Lake levels to predictive control compared to historical operation. Predictive control reduces the frequency and magnitude of flooding during high water events, and preserves river flow during drought events.}\label{figure:RLSimResults}
+\end{minipage}\par\vspace{6pt}
+
+\begin{minipage}{0.9\linewidth}
+\centering
+\par\vspace{10pt}
+\includegraphics[width=\linewidth]{RLSimResultsA}
+\captionof{figure}[]{}\label{figure:RLSimResultsA}
+\end{minipage}\par\vspace{6pt}
+
+\begin{minipage}{0.9\linewidth}
+\centering
+\par\vspace{10pt}
+\includegraphics[width=\linewidth]{RLSimResultsB}
+\captionof{figure}[]{Results of predictive control for Rainy Lake versus historical record for 2000-2014 during the critical May-September high water periods.}\label{figure:RLSimResultsB}
+\end{minipage}\par\vspace{6pt}
+
+Performance of the controller compared to historical records is shown in Figures \ref{figure:RLSimResults}--\ref{figure:RLSimResultsB}. The main result is an approximate reduction of 14 centimeters in the 95th percentile of high water events. An unexpected benefit of improved control is a substantial reduction in the number of low water events. These benefits would have substantial but as yet unquantified economic benefits for property owners and businesses operating on the lake.
+
+\begin{minipage}{0.9\linewidth}
+\centering
+\par\vspace{10pt}
+\includegraphics[width=\linewidth]{IceOutPredictor}
+\captionof{figure}[]{Regression models have been developed to predict the dates of ice-out in the Rainy River basin using winter temperature and precipitation records. The predictor was trained on a limited set of data, and tested against the historical record. This chart compares predicted and observed ice-out dates for historical data.  The ice-out predictor provides a foundation for adapting rule curves to climate change.}\label{figure:5}
+\end{minipage}\par\vspace{6pt}
+
+\begin{minipage}{0.9\linewidth}
+\centering
+\par\vspace{10pt}
+\includegraphics[width=\linewidth]{20150804_194209.jpg}
+\captionof{figure}[]{Wild rice crop nearing approaching maturity. The success of improved control and adaptive management in the watershed depends on key sentinel species indicative of the regional ecology. In the Rainy River basin these include the wild rice harvested by the First Nations, key fish and waterfowls species, and indicators of invasive species.}\label{figure:6}
+\end{minipage}\par\vspace{6pt}
+
+\section*{Concluding Remarks}
+
+The primary goal of adaptive management is regulate lake levels and river flows in response to measured events rather than to fixed dates on the calendar. In the Rainy River basin, the change in climate has led to earlier snow melt and ice out of the regions's lakes, and more intense precipitation events in late Spring and early Summer. 
+
+The on-going challenge of this work is to integrate lake level control with the design of rule curves and the management of complex ecosystems. 
+
+
+
+\section*{References}
+\nocite{*}
+\bibliographystyle{apalike}
+\small
+\bibliography{WatershedControl2}
+
+\end{document}
