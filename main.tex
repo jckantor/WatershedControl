@@ -14,7 +14,7 @@
 \begin{document}
 
 \begin{abstract}
-It has become apparent in recent decades that preservation and management of the earth's freshwater is critical global priority. Surface freshwater in particular, which  accounts for just 0.3\% of all freshwater resources of the earth, is the primary source of water used for agriculture, direct human consumption, industrial use, power generation, inland transportation, and recreation. The impacts of climate change and intensity of use threaten natural watersheds with profound consequences for human use and the associated ecosystems. 
+It has become apparent in recent decades that preservation and management of the earth's freshwater is a critical global priority. Surface freshwater in particular, which  accounts for just 0.3\% of all freshwater resources of the earth, is the primary source of water used for agriculture, direct human consumption, industrial use, power generation, inland transportation, and recreation. The impacts of climate change and intensity of use threaten natural watersheds with profound consequences for human use and the associated ecosystems. 
 
 The primary means of manipulating natural watersheds is through the control of streams flows at the location of dams. This is paper discusses the application of advanced control methodologies for the management of a natural 70,225 km$^2$ watershed watershed located on the Minnesota/Ontario border between the the United States and Canada. The paper provides an overview of hydrological considerations, estimation of lake inflows from limited sensor measurements, diagnostics, flood prediction and mitigation, and incorporating ecological considerations into predictive control.
 \end{abstract}
@@ -53,19 +53,23 @@ watershed \sep ecosystems
 \section{Introduction}
 \noindent
 
-It has become apparent in recent decades that preservation and management of the earth's freshwater is critical global priority. Surface freshwater in particular, which  accounts for just 0.3\% of all freshwater resources of the earth, is the primary source of water used for agriculture, direct human consumption, industry, power generation, inland transportation, and recreation. 
+It has become apparent in recent decades that preservation and management of the earth's freshwater is critical global priority \cite{UN-water}. Surface freshwater in particular, which  accounts for just 0.3\% of all freshwater resources of the earth, is the primary source of water used for agriculture, direct human consumption, industry, power generation, inland transportation, and recreation. 
 
-The impacts of climate change and intensity of use threaten natural watersheds with profound consequences for human use and the associated ecosystems.  According to the United Nations Water Development Report, for example, over 50\% of the world's natural wetlands have been lost to agriculture \cite{wwap2003united,Verhoeven:2010aa}. Changes in land-use have have led to changes in the world's evapotranspiration cycle with uncertain consequences for drought frequency and intensity.
+The impacts of climate change and intensity of use threaten natural watersheds with profound consequences for human use and the associated ecosystems. According to the United Nations Water Development Report, for example, over 50\% of the world's natural wetlands have been lost to agriculture \cite{wwap2003united,Verhoeven:2010aa}. Changes in land-use threaten the world's evapotranspiration cycle with uncertain consequences for drought frequency and intensity \cite{Fisher2017}. Collectively, the changes already observed, and uncertainty regarding the future of the terrestrial biosphere, call for the development of adaptive strategies to management surface freshwater resources.
+
+This challenge is evident in the large surface freshwater resources of North America that include the Great Lakes, the rivers and streams of the Canadian Shield, and the trans-boundary waters of the United States and Canada which, collectively, account for over 20\% of the world's surface freshwater.
+
+The trans-boundary waters between the United States and Canada are regulated by the binational International Joint Commission created under terms of the Boundary Water Treaty of 1909.
+
+This paper investigates the use of advanced control and estimation methodologies for the adaptive management of lake levels and river flows in the Rainy River basin straddling the international border between the United States and Canada.
+
+Minnesota and Ontario. This basin is a complex 70,225 km$^2$ watershed (about the size of Ireland) that is a component of the larger Lake of the Woods basin which, in turn, flows northward to Hudson Bay. The Rainy Lake basin falls under the authority of the International Joint Commission created in the Boundary Water Treaty of 1909 between the United States and Canada.
 
 The primary means of manipulating natural watersheds is through the control of streams flows at the location of dams. This is paper discusses the application of advanced control methodologies for the management of a natural 70,225 km$^2$ watershed watershed located on the Minnesota/Ontario border between the the United States and Canada. The paper provides an overview of hydrological considerations, estimation of lake inflows from limited sensor measurements, diagnostics, flood prediction and mitigation, and incorporating ecological considerations into predictive control.
 
-Managing freshwater resources in the face of intense human need and profound climate change is a challenge facing many regions of the world. \cite{Verhoeven:2010aa}.
 
-This challenge is evident in the large freshwater resources of North America including the Great Lakes, the rivers and streams of the Canadian Shield, and the trans-boundary waters of the United States and Canada which, collectively, account for over 20\% of the world's surface freshwater
 
-regulated under the Boundary Water Treaty of 1909 and managed by the International Joint Commission.
-
-This paper investigates the use of advanced control and estimation methodologies for the adaptive management of lake levels and river flows in the Rainy River basin straddling the international border between Minnesota and Ontario. This basin is a complex 70,225 km$^2$ watershed (about the size of Ireland) that is a component of the larger Lake of the Woods basin which, in turn, flows northward to Hudson Bay. The Rainy Lake basin falls under the authority of the Boundary Water Treaty of 1909 between the United States and Canada, and managed by the the Canada/USA bi-national International Joint Commi managed by the International Joint Commission. . 
+ 
 
 The watershed includes Voyageurs National Park, the Boundary Waters Canoe Area (BWCA) and Bois Forte Indian Reservation on the U.S. side of the border, the Quetico Provincial Park wilderness area, the Mitaanjigamiing, Couchiching, and Nigigoonsiminikaang First Nation communities on the Canadian side. The watershed generates revenue through timber for lumber and paper production, electricity generation, recreation, and tourism, and ultimately provides drinking water for 750,000 people.
 
