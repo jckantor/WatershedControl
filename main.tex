@@ -53,72 +53,54 @@ watershed \sep ecosystems
 \section{Introduction}
 \noindent
 
-The preservation and management of the earth's freshwater is critical global priority. Surface freshwater, in particular, which accounts for just 0.3\% of all freshwater resources of the earth, is the primary source of water for agriculture, direct human consumption, industry, power generation, inland transportation, and recreation. 
+The preservation and management of the earth's freshwater is a critical global priority. Surface freshwater, in particular, accounts for just 0.3\% of all freshwater resources of the earth but is the primary source of water for direct human consumption, agriculture, industry, power generation, inland transportation, and recreation. 
 
-The quality and quantity of surface freshwater is under threat from multiple factors. According to the United Nations Water Development Report \cite{wwap2003united,Verhoeven:2010aa}, for example, over 50\% of the world's natural wetlands have been lost to agriculture since 1900. Further land use changes have altered the world's evapotranspiration cycle resulting in increased drought frequency and intensity \cite{Fisher2017}. Harmful algal blooms are occurring with increasing frequency and intensity, and the number of lakes affected is projected to increase by 20\% by 2050 \cite{wwap2015united}.
+These surface freshwater resources are under threat from multiple factors. According to the United Nations Water Development Report \cite{wwap2003united,Verhoeven:2010aa}, for example, over 50\% of the world's natural wetlands have been lost to agriculture since 1900. Land use changes over that period have altered the world's evapotranspiration cycle resulting in increased drought frequency and intensity \cite{Fisher2017}. Harmful algal blooms are occurring with increasing frequency and intensity, and the number of lakes affected is projected to increase by 20\% by 2050 \cite{wwap2015united}. Given the evident change in surface freshwater resources due to climate and environment factors, and uncertainty regarding the future of the terrestrial biosphere, adaptive management of water resources has been an active area of policy development \cite{williams2011adaptive,pahl2007transitions,loucks2005water,board2004adaptive}.
 
-Given the changes in  climate and environmental changes already evident, and uncertainty regarding the future of the terrestrial biosphere, the development of adaptive strategies for the management of surface freshwater resources.
-
-This challenge is evident in the large surface freshwater resources of North America that include the Great Lakes, the rivers and streams of the Canadian Shield, and the trans-boundary waters of the United States and Canada which account for over 20\% of the world's surface freshwater. 
-
-
-This paper investigates the use of advanced control and estimation methodologies for the adaptive management of lake levels and river flows in the Rainy River basin straddling the international border between the United States and Canada.
-
-
-
-
-
-The trans-boundary waters between the United States and Canada are regulated by the binational International Joint Commission created under terms of the Boundary Water Treaty of 1909.
-
-
-
-Minnesota and Ontario. This basin is a complex 70,225 km$^2$ watershed (about the size of Ireland) that is a component of the larger Lake of the Woods basin which, in turn, flows northward to Hudson Bay. The Rainy Lake basin falls under the authority of the International Joint Commission created in the Boundary Water Treaty of 1909 between the United States and Canada.
-
-The primary means of manipulating natural watersheds is through the control of streams flows at the location of dams. This is paper discusses the application of advanced control methodologies for the management of a natural 70,225 km$^2$ watershed watershed located on the Minnesota/Ontario border between the the United States and Canada. The paper provides an overview of hydrological considerations, estimation of lake inflows from limited sensor measurements, diagnostics, flood prediction and mitigation, and incorporating ecological considerations into predictive control.
-
-
-
- 
-
-The watershed includes Voyageurs National Park, the Boundary Waters Canoe Area (BWCA) and Bois Forte Indian Reservation on the U.S. side of the border, the Quetico Provincial Park wilderness area, the Mitaanjigamiing, Couchiching, and Nigigoonsiminikaang First Nation communities on the Canadian side. The watershed generates revenue through timber for lumber and paper production, electricity generation, recreation, and tourism, and ultimately provides drinking water for 750,000 people.
-
-\begin{figure}
-\includegraphics[width=\linewidth]{basins_map.png}
-\caption{Map of the transboundary watershed basins under the purview of the International Joint Commission.}\label{figure:1}
-\end{figure}
-
-The two largest lakes within the watershed, Rainy Lake (approximately 930 km$^2$) and the Namakan Reservoir (approximately, are partially controlled by dams operated by commercial entities under terms of Orders issued by the International Joint Commission. For this watershed dam operators are required to manage lake levels, when feasible, to remain within 'rule curves' which establish upper and lower bounds on lake levels. The rule curves are periodically reviewed and revised to accommodate ecological, hydrological, economic, and political considerations. The most recent revisions were 1970 and 2000. A review is currently underway that is likely to result in some changes to the standing orders for lake level management.
+The research reported in this paper explores the use of advanced control and estimation methodologies in support of adaptive management of lake levels and river flows in the Rainy River basin straddling the international border between the United States and Canada.
 
 \begin{figure}
 \includegraphics[width=\linewidth]{rl_basinmap.png}
-\caption{Description of Figure}\label{figure:2}
+\caption{Map of the Rainy River watershed courtesy of the International Joint Commission. The three major sub-basins are denoted by a red outline. The two control dams considered in this work are located at International Falls, MN/Fort Frances, Ont, and at Kettle Falls. }\label{figure:2}
 \end{figure}
+ 
+The Rainy River basin is a complex 55,000+ km$^2$ watershed that is part of the larger Lake of the Woods basin and, ultimately, the Hudson Bay watershed. The Rainy River basin includes Voyageurs National Park, the Boundary Waters Canoe Area (BWCA) and Bois Forte Reservation on the U.S. side of the border, the Quetico Provincial Park wilderness area, and the Mitaanjigamiing, Couchiching, and Nigigoonsiminikaang First Nation communities on the Canadian side. The Rainy River watershed generates revenue through timber for lumber and paper production, electricity generation, recreation, and tourism, and ultimately provides drinking water for 750,000 people downstream.
 
-\begin{figure}
-\includegraphics[width=\linewidth]{RuleCurveComparison.png}
-\caption{Rule curves establish desired upper and lower bounds of lake levels. This chart compares rules in force for the Namakan Reservoir (upper panel) and Rainy Lake (lower panel) for the period 1970-1999, and 2000 -- present. The additional lines establish emergency high and lower water conditions.} \label{figure:3}
-\end{figure}
+As part of the trans-boundary waters between the United States and Canada, the Rainy River basin is managed by the binational International Joint Commission created under terms of the Boundary Water Treaty of 1909. The International Joint Commission manages twelve distinct watersheds comprising over 330 lakes and fully 40\% of the 8,800 km border between the US and Canada. 
 
-The project reported here was initiated following a series of high water events subsequent to the rule curve revision of 2000, including major flooding in the summers of 2002 and 2014. The goal of the initial work was to establish whether the flooding events could have been prevented by improved control of dam operations.  The project has evolved and now encompasses three main efforts:
+The primary means of manipulating natural watersheds is through the control of streams flows at the location of control dams. The two largest lakes within the Rainy River watershed, Rainy Lake (approximately 900 km$^2$) and the Namakan Reservoir (approximately, 265 km$^2^$) are partially controlled by dams operated by commercial entities under formal Orders issued by the International Joint Commission. Dam operators in this watershed are required to manage lake levels, when feasible, to remain within 'rule curves' that establish upper and lower bounds on lake levels as a function of calendar date. The rule curves include additional specifications and procedures for emergency low and high water conditions. The rule curves specified by the International Joint Commission are a compromise among the interests of stakeholders. The rule curves are periodically reviewed and revised to accommodate ecological, hydrological, economic, and political considerations. The most recent revisions were 1970 and 2000. As of the writing of this manuscript (2017), a review is currently underway that could result in revisions to the standing orders for lake level management, including changes to the rule curves.
 
-\begin{figure}
-\includegraphics[width=\linewidth]{RuleCurvePerformance2000-2014}
-\caption{The levels of Rainy Lake and Namakan Reservoir are compared to the rule curves in effect for 2000-2014. The significant overshoots correspond to flooding events with serious economic and ecological consequences.}\label{figure:4}
-\end{figure}
+The research reported in this paper was initiated following a series of high water events subsequent to the rule curve revision of 2000, including flooding events in the summers of 2002 and 2014. The initial goal of the work was to establish whether the flooding events could have been prevented by improved control of dam operation located on Rainy and Namakan Lakes. Subsequently the project evolved to encompass three main efforts:
 
 \begin{itemize}
 \item Development of a tracking filter to estimate net inflows to the major reservoirs in the watershed using available lake level gauges and limited stream flow measurements.
-\item Development of multivariable predictive control strategy for the integrated control of the two major dams in the watershed.  Constraints on dam operation include management of emergency high water and low water events, hydrological conveyance constraints upstream of the dams, ecological and property considerations, and constraints on river bank erosion downstream of the dams.
+\item Development of multivariable control strategy for the integrated control of the two major dams in the watershed.  Constraints on dam operation include management of emergency high water and low water events, hydrological conveyance constraints upstream of the dams, ecological and property considerations, and constraints on river bank erosion downstream of the dams.
 \item Development of a revised rule curve order for the adaptive management of the water levels and flows that is feasible, can accommodate more variable seasonal flows resulting from the effects of climate change, and that accommodate the biological requirements of key sentinel species representative of the regional ecology.	
 \end{itemize}
+
+This paper provides an overview of hydrological considerations, estimation of lake inflows from limited sensor measurements, diagnostics, flood prediction and mitigation, and incorporating ecological considerations into predictive control.
+
+\section{System Description}
+
+For the purposes of lake level estimation and control, we consider a simple one-dimensional inventory model of the major lakes in this watershed as illustrated in the accompanying figure. The inventory labelled Namakan Reservoir consists of Namakan Lake, Kabetogama 
+
+\begin{figure}
+\includegraphics[width=\linewidth]{FlowDiagram}
+\caption{The lakes are modeled as simple inventories with level/volume relationships obtained from bathymetry data.}\label{figure:5}
+\end{figure}
 
 \section{Estimating Lake Inflows}
 
 A tracking filter was developed for the purpose of estimating the net inflow to Rainy Lake. The filter uses available level gauges and incomplete stream flow data to estimate inflows. The serendipitous occurrence of redundant lake measurements in the historical database provided a statistical model for the level measurement errors. The error model was used to tune the tracking filter to produce maximum likelihood estimates of inflows to Rainy Lake. 
 
 \begin{figure}
-\includegraphics[width=\linewidth]{FlowDiagram}
-\caption{The lakes are modeled as simple inventories with level/volume relationships obtained from bathymetry data.}\label{figure:5}
+\includegraphics[width=\linewidth]{RuleCurveComparison.png}
+\caption{Rule curves establish desired upper and lower bounds of lake levels. This chart compares rules in force for the Namakan Reservoir (upper panel) and Rainy Lake (lower panel) for the period 1970-1999, and 2000 -- present. The additional lines establish emergency high and lower water conditions.} \label{figure:3}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=\linewidth]{RuleCurvePerformance2000-2014}
+\caption{The levels of Rainy Lake and Namakan Reservoir are compared to the rule curves in effect for 2000-2014. The significant overshoots correspond to flooding events with serious economic and ecological consequences.}\label{figure:4}
 \end{figure}
 
 \subsection{Inventory model}
@@ -285,8 +267,6 @@ The on-going challenge of this work is to integrate lake level control with the 
 The authors received significant advice and background information from numerous sources including Environment and Climate Change Rainy Lake Property Owner's Association, 
 
 \section{References}
-\nocite{*}
 \bibliographystyle{apalike}
 \bibliography{WatershedControl_CEC}
 \end{document}
-
